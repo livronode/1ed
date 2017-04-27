@@ -4,7 +4,10 @@
   "description": "Exemplo do cap 04",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"start": "node index.js",
+	"nodemon": "nodemon index.js"
+
   },
   "keywords": [
     "livro",
