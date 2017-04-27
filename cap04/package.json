@@ -1,0 +1,15 @@
+{
+  "name": "cap04",
+  "version": "1.0.0",
+  "description": "Exemplo do cap 04",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "livro",
+    "node"
+  ],
+  "author": "Ricardo R Lecheta",
+  "license": "ISC"
+}
