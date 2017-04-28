@@ -2,8 +2,6 @@
 var http = require('http');
 var url  = require('url')
 
-import { Pessoa } from 'Pessoa'
-
 // Função de callback para o servidor HTTP
 function callback(request, response) {
 	// Cabeçalho (header) com o tipo da resposta + UTF-8 como charset
@@ -16,22 +14,12 @@ function callback(request, response) {
 	response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
 
 	// Verifica o path
-	if (path == '/teste') {
-		// Cria um array
-		var pessoas = []
+	if (path == '/teste') {  
+		// Cria um objeto em JavaScript
+		var pessoa = { "nome":"Ricardo Lecheta", "sobrenome":"Lecheta"};
 
-		
-
-		// Cria dois objetos do tipo Pessoa
-		var p1 = new Pessoa("Ricardo R","Lecheta");
-		var p2 = new Pessoa("Steve","Jobs");
-
-		// Adiciona os objetos no array
-		pessoas.push(p1);
-		pessoas.push(p2);
-
-		// Converte o array para JSON
-		var json = JSON.stringify(pessoas);
+		// Converte o objeto para JSON
+		json = JSON.stringify(pessoa);
 
 		// Escreve o JSON na resposta (response) da requisição HTTP
 		response.end(json);

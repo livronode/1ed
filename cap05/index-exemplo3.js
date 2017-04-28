@@ -2,8 +2,6 @@
 var http = require('http');
 var url  = require('url')
 
-import { Pessoa } from 'Pessoa'
-
 // Função de callback para o servidor HTTP
 function callback(request, response) {
 	// Cabeçalho (header) com o tipo da resposta + UTF-8 como charset
@@ -20,11 +18,9 @@ function callback(request, response) {
 		// Cria um array
 		var pessoas = []
 
-		
-
-		// Cria dois objetos do tipo Pessoa
-		var p1 = new Pessoa("Ricardo R","Lecheta");
-		var p2 = new Pessoa("Steve","Jobs");
+		// Cria 2 pessoas
+		var p1 = { "nome":"Ricardo Lecheta", "sobrenome":"Lecheta"};
+		var p2 = { "nome":"Steve", "sobrenome":"Jobs"};
 
 		// Adiciona os objetos no array
 		pessoas.push(p1);
