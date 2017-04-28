@@ -19,14 +19,33 @@ function callback(request, response) {
 	var path = parts.path;
 	// Verifica o path
 	if (path == '/carros/classicos') {
-		// Retorna o JSON dos carros cássicos
+		
+		// Retorna o JSON dos carros esportivos
 		readFile(response,"carros_classicos.json");
+
 	} else if (path == '/carros/esportivos') {  
 		// Retorna o JSON dos carros esportivos
 		readFile(response,"carros_esportivos.json");
 	} else if (path == '/carros/luxo') {  
 		// Retorna o JSON dos carros luxo
 		readFile(response,"carros_luxo.json");
+	}  else if (path == '/teste') {  
+		// let array;
+
+		// Carro c = new Carro()
+
+
+		// array.push()
+
+		// response.end("{\"nome\":\"Ricardo\"}");
+
+		// response.json({'nome':'Ricardo'});
+
+		var pessoa = { "nome":"Ricardo Lecheta", "email":"rlecheta@gmail.com"};
+
+		var json = JSON.stringify(pessoa);
+
+		response.end(json);
 	} else {
 		response.end("Not found: " + path);
 	}
