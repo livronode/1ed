@@ -1,7 +1,7 @@
 // Classe Pessoa
-export class Pessoa {
+module.exports = class Pessoa {
 		constructor(nome, sobrenome) {
-		this.nome = nome; 
-		this.sobrenome = sobrenome;
+			this.nome = nome; 
+			this.sobrenome = sobrenome;
 		}
 };
