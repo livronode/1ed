@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 
-// Classe Pessoa
+// Classe CarroRepository
 module.exports = class CarroRepository {
 
 	// Retorna o JSON de uma lista de carros.
@@ -26,19 +26,8 @@ module.exports = class CarroRepository {
 		  
 		  var carros = results;
 
-		  /*for(let i = 0; carros.length > i; i++) {
-		  	console.log(carros[i].id + ": " + carros[i].nome);
-		  }*/
-
-		  /*for(let i in carros) {
-		  		let c = carros[i];
-				console.log(c.id + ": " + c.nome);
-		  }*/
-
-		  // carros.map(carro => console.log(carro.nome));
-
 		  // Converte o array de resultados para JSON
-		  var json = JSON.stringify(results)
+		  var json = JSON.stringify(carros)
 		  
 		  // Envia o JSON como resposta
 		  response.end(json)

@@ -1,7 +1,6 @@
 // Carrega os módulos
 var http = require('http');
-var url  = require('url')
-var mysql = require('mysql');
+var url  = require('url');
 
 const CarroRepository = require('./CarroRepository');
 
