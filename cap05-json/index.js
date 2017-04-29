@@ -2,8 +2,7 @@
 var http = require('http');
 var url  = require('url')
 
-const Pessoa2 = require('./pessoa');
-// var Bob = require('./bob');
+const Pessoa = require('./pessoa');
 
 // Função de callback para o servidor HTTP
 function callback(request, response) {
@@ -22,8 +21,8 @@ function callback(request, response) {
 		var pessoas = []
 
 		// Cria dois objetos do tipo Pessoa
-		var p1 = new Pessoa2("Ricardo R","Lecheta");
-		var p2 = new Pessoa2("Steve","Jobs");
+		var p1 = new Pessoa("Ricardo R","Lecheta");
+		var p2 = new Pessoa("Steve","Jobs");
 
 		// Adiciona os objetos no array
 		pessoas.push(p1);

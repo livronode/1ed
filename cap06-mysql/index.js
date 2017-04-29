@@ -1,38 +1,9 @@
 // Carrega os módulos
 var http = require('http');
 var url  = require('url')
-var mysql      = require('mysql');
+var mysql = require('mysql');
 
-// Retorna o JSON de uma lista de carros.
-function getCarros(response,tipo) {
-	// Faz a leitura do arquivo de forma assíncrona
-	// Cria a conexão com MySQL
-	var connection = mysql.createConnection({
-	  host     : 'localhost',
-	  user     : 'livro',
-	  password : 'livro123',
-	  database : 'livro'
-	});
-
-	// Conecta no banco de dados	
-	connection.connect();
-
-	// Cria uma consulta
-	connection.query("select id,nome,tipo from carro where tipo = '" + tipo + "'", function (error, results, fields) {
-	  if (error) throw error;
-	  
-	  // Aqui quero fazer um for e imprimir mas nao consigo
-
-	  // Converte o array de resultados para JSON
-	  var json = JSON.stringify(results)
-	  
-	  // Envia o JSON como resposta
-	  response.end(json)
-	});
-
-	// Fecha a conexão.
-	connection.end();
-}
+const CarroController = require('./CarroController');
 
 // Função de callback para o servidor HTTP
 function callback(request, response) {
@@ -43,13 +14,15 @@ function callback(request, response) {
 	// Configura o tipo de retorno para application/json
 	response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
 
+	let controller = CarroController();
+
 	// Verifica o path
 	if (path == '/carros/classicos') {
-		getCarros(response, "classicos")
+		controller.getCarros(response, "classicos")
 	} else if (path == '/carros/esportivos') {
-		getCarros(response, "esportivos")
+		controller.getCarros(response, "esportivos")
 	} else if (path == '/carros/luxo') {
-		getCarros(response, "luxo")
+		controller.getCarros(response, "luxo")
 	} else {
 		response.end("Not found: " + path);
 	}
