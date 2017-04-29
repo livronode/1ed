@@ -3,7 +3,7 @@ var http = require('http');
 var url  = require('url')
 var mysql = require('mysql');
 
-const CarroController = require('./CarroController');
+const CarroRepository = require('./CarroRepository');
 
 // Função de callback para o servidor HTTP
 function callback(request, response) {
@@ -14,15 +14,13 @@ function callback(request, response) {
 	// Configura o tipo de retorno para application/json
 	response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
 
-	let controller = new CarroController();
-
 	// Verifica o path
 	if (path == '/carros/classicos') {
-		controller.getCarros(response, "classicos")
+		CarroRepository.getCarros(response, "classicos")
 	} else if (path == '/carros/esportivos') {
-		controller.getCarros(response, "esportivos")
+		CarroRepository.getCarros(response, "esportivos")
 	} else if (path == '/carros/luxo') {
-		controller.getCarros(response, "luxo")
+		CarroRepository.getCarros(response, "luxo")
 	} else {
 		response.end("Not found: " + path);
 	}
