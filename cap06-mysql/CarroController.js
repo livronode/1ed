@@ -1,11 +1,11 @@
 var mysql = require('mysql');
 
 // Classe Pessoa
-module.exports = function CarroService() {
+module.exports = class CarroController {
 		
 
 	// Retorna o JSON de uma lista de carros.
-	function getCarros(response,tipo) {
+	getCarros(response,tipo) {
 		// Faz a leitura do arquivo de forma assíncrona
 		// Cria a conexão com MySQL
 		var connection = mysql.createConnection({

@@ -14,7 +14,7 @@ function callback(request, response) {
 	// Configura o tipo de retorno para application/json
 	response.writeHead(200, {"Content-Type": "application/json; charset=utf-8"});
 
-	let controller = CarroController();
+	let controller = new CarroController();
 
 	// Verifica o path
 	if (path == '/carros/classicos') {
