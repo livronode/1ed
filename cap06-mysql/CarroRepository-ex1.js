@@ -16,15 +16,19 @@ module.exports = class CarroRepository {
 		return connection;
 	}
 	// Retorna o JSON de uma lista de carros.
-	static getCarros(tipo, callback) {
+	static getCarros(response,tipo) {
+		
 
 		let connection = CarroRepository.connect()
 		// Cria uma consulta
 		let sql = "select id,nome,tipo from carro where tipo = '" + tipo + "'";
 		let query = connection.query(sql, function (error, results, fields) {
 			if (error) throw error;
-			// Retorna os dados pela função de callback
-			callback(results)
+			var carros = results;
+			// Converte o array de resultados para JSON
+			var json = JSON.stringify(carros)  
+			  // Envia o JSON como resposta
+		  	response.end(json)
 		});
 		console.log(query.sql)
 		// Fecha a conexão.

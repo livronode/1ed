@@ -4,20 +4,6 @@ var url  = require('url');
 
 const CarroRepository = require('./CarroRepository');
 
-// Retorna o JSON de uma lista de carros.
-function getCarros(response,tipo) {
-
-	// Chama a classe que faz a consulta no banco
-	// Recebe o retorno por meio da função de callback
-	CarroRepository.getCarros("classicos", function(carros) {
-		// Converte o array de carros para JSON
-		var json = JSON.stringify(carros)
-	
-		// Envia o JSON como resposta
-	    response.end("ok")
-	});
-}
-
 // Função de callback para o servidor HTTP
 function callback(request, response) {
 	// Faz o parser da URL separando o caminho (path)
@@ -29,11 +15,11 @@ function callback(request, response) {
 
 	// Verifica o path
 	if (path == '/carros/classicos') {
-		CarroRepository.getCarros("classicos")
+		CarroRepository.getCarros(response, "classicos")
 	} else if (path == '/carros/esportivos') {
-		CarroRepository.getCarros("esportivos")
+		CarroRepository.getCarros(response, "esportivos")
 	} else if (path == '/carros/luxo') {
-		CarroRepository.getCarros("luxo")
+		CarroRepository.getCarros(response, "luxo")
 	} else {
 		response.end("Not found: " + path);
 	}
