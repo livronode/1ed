@@ -14,7 +14,7 @@ function getCarros(response,tipo) {
 		var json = JSON.stringify(carros)
 	
 		// Envia o JSON como resposta
-	    response.end("ok")
+	    response.end(json)
 	});
 }
 
@@ -29,11 +29,11 @@ function callback(request, response) {
 
 	// Verifica o path
 	if (path == '/carros/classicos') {
-		CarroRepository.getCarros("classicos")
+		getCarros(response, "classicos")
 	} else if (path == '/carros/esportivos') {
-		CarroRepository.getCarros("esportivos")
+		getCarros(response,"esportivos")
 	} else if (path == '/carros/luxo') {
-		CarroRepository.getCarros("luxo")
+		getCarros(response,"luxo")
 	} else {
 		response.end("Not found: " + path);
 	}
