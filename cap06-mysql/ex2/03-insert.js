@@ -1,28 +1,10 @@
-// Carrega o módulo do MySQL
-var mysql      = require('mysql');
-
-// Cria a conexão com MySQL
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'livro',
-	password: 'livro123',
-	database: 'livro'
-});
-// Conecta no banco de dados	
-connection.connect();
-
-// SQL para inserir o carro
-let sql = "insert into carro set ? ";
+// Importa a classe CarroRepository
+const CarroRepository = require('./CarroRepository');
 
 // Objeto carro em JSON
-var carro = { nome: "Meu Carro" , tipo : "esportivos"};
+var carro = { nome: "Meu Carro BD" , tipo : "esportivos"};
 
-connection.query( sql , carro, function (error, results, fields) {
-	if (error) throw error;
-
-	console.log("Carro salvo com sucesso, id: " + results.insertId);
-
+CarroRepository.save(carro, function (carro) {
+	// Imprime os dados do carro
+	console.log("Carro Salvo: " + carro.id + ": " + carro.nome);
 });
-
-// Fecha a conexão.
-connection.end();
