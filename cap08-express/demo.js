@@ -28,9 +28,11 @@ app.use (function(req, res, next) {
 });
 
 app.get('/', function (req, res) {
-   // res.send(req.query.nome + " " + req.query.sobrenome);
+   let nome = req.query.nome;
+  let sobrenome = req.query.sobrenome;
+  res.status(200).type("text");
+  res.send(nome + " " + sobrenome);
 
-   res.send(req.query.nome + " " + req.query.sobrenome);
 })
 
 app.get('/users/:userId', function (req, res) {
