@@ -43,6 +43,9 @@ app.get('/pessoas/nome/:nome/sobrenome/:sobrenome', function (req, res) {
 	res.send(nome + " " + sobrenome);
 })
 
+setTimeout(function () {
+  console.log('boo')
+}, 100)
 
 var server = app.listen(3000, function () {
    var host = server.address().address

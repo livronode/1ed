@@ -15,10 +15,10 @@ function testeVar() {
 // Executa a função testeVar()
 // testeVar()
 
-function soma(a, b) {
+/*function soma(a, b) {
 	return a + b;
 }
-var soma = soma(1,2);
+var soma = soma(1,2);*/
 // console.log(soma);
 
 function testeArray() {
@@ -116,5 +116,16 @@ function objetos4() {
 	console.log(pessoa.nome);
 	console.log(Pessoa.hello());
 }
-objetos4();
+// objetos4();
+
+
+// Esta função recebe outra função como parâmetro
+function executar(funcao, a, b) {
+	return funcao(a,b);
+}
+// A função soma() será executada...
+var funcao = function(a,b) { return a + b};
+let resultado = executar(funcao, 1,2);
+// Vai imprimir 3
+console.log(resultado); 
 
