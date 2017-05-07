@@ -9,21 +9,22 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Configura uma rota na raiz /
-app.get('/', function (req, res) {
+// GET em /pessoa
+app.get('/pessoa', function (req, res) {
 	let nome = req.query.nome;
 	let sobrenome = req.query.sobrenome;
 	res.status(200).type("text");
 	res.send(nome + " " + sobrenome);
 })
 
-app.post('/', function (req, res) {
+// POST em /pessoa
+app.post('/pessoa', function (req, res) {
 	let nome = req.body.nome;
 	let sobrenome = req.body.sobrenome;
 	// Testa o valor do cabeçalho content-type
 	if(req.is("json")) {
 		// Se for JSON
-		res.json({nome:nome,sobrenome:sobrenome});
+		res.json( { nome:nome, sobrenome:sobrenome } );
 	} else {
 		// Caso contrário envia como texto
 		res.type("text").send("Texto: " + nome + " " + sobrenome);
@@ -31,13 +32,13 @@ app.post('/', function (req, res) {
 })
 
 
-app.get('/carros/:id', function (req, res) {
+app.get('/pessoa/:id', function (req, res) {
 	let id = req.params.id;
-	res.send("Buscar o carro: " + id);
+	res.send("Buscar a Pessoa: " + id);
 
 })
 
-app.get('/pessoas/nome/:nome/sobrenome/:sobrenome', function (req, res) {
+app.get('/pessoa/nome/:nome/sobrenome/:sobrenome', function (req, res) {
 	let nome = req.params.nome;
 	let sobrenome = req.params.sobrenome;
 	res.send(nome + " " + sobrenome);
