@@ -5,18 +5,37 @@ var bodyParser = require('body-parser');
 // Configura para ler dados do POST por form-urlencoded e application/json
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 // Configura uma rota na raiz.
 app.get('/', function (req, res) {
 	res.send("API dos Carros");
 })
+
 // GET em /carros
 app.get('/carros', function (req, res) {
 	CarroRepository.getCarros(function(carros) {
 		res.json(carros)
 	});
 })
-// GET em /carros/tipo/xxx
-app.get('/carros/tipo/:tipo', function (req, res) {
+
+// GET em /carros/id
+app.get('/carros/:id(\\d+)', function (req, res) {
+	let id = req.params.id;
+	CarroRepository.getCarroById(id, function(carro) {
+		res.json(carro)
+	});
+})
+// DELETE em /carros/id
+app.delete('/carros/:id(\\d+)', function (req, res) {
+	let id = req.params.id;
+	console.log("deletar arro " + id);
+	CarroRepository.deleteById(id, function(affectedRows) {
+		res.json ({ msg: 'Carro deletado com sucesso.' })
+	});
+})
+
+// GET em /carros/xxx
+app.get('/carros/:tipo', function (req, res) {
 	let tipo = req.params.tipo;
 	CarroRepository.getCarrosByTipo(tipo, function(carros) {
 		res.json(carros)
@@ -37,21 +56,6 @@ app.put('/carros', function (req, res) {
 	CarroRepository.update(carro, function(carro) {
 		// res.json(carro)
 		res.json ({ msg: 'Carro atualizado com sucesso.' })
-	});
-})
-// GET em /carros/id
-app.get('/carros/:id', function (req, res) {
-	let id = req.params.id;
-	CarroRepository.getCarroById(id, function(carro) {
-		res.json(carro)
-	});
-})
-// DELETE em /carros/id
-app.delete('/carros/:id', function (req, res) {
-	let id = req.params.id;
-	console.log("deletar arro " + id);
-	CarroRepository.deleteById(id, function(affectedRows) {
-		res.json ({ msg: 'Carro deletado com sucesso.' })
 	});
 })
 
