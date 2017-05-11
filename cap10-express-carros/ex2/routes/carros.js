@@ -1,6 +1,6 @@
 var express = require('express');
 const router = express.Router();
-const CarroRepository = require('../repository/CarroRepository');
+const CarroDB = require('../repository/CarroDB');
 
 // Configura uma rota na raiz.
 router.get('/', function (req, res) {
@@ -9,7 +9,7 @@ router.get('/', function (req, res) {
 
 // GET em /carros
 router.get('/carros', function (req, res) {
-	CarroRepository.getCarros(function(carros) {
+	CarroDB.getCarros(function(carros) {
 		res.json(carros)
 	});
 })
@@ -17,7 +17,7 @@ router.get('/carros', function (req, res) {
 // GET em /carros/id
 router.get('/carros/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
-	CarroRepository.getCarroById(id, function(carro) {
+	CarroDB.getCarroById(id, function(carro) {
 		res.json(carro)
 	});
 })
@@ -25,7 +25,7 @@ router.get('/carros/:id(\\d+)', function (req, res) {
 router.delete('/carros/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
 	console.log("deletar arro " + id);
-	CarroRepository.deleteById(id, function(affectedRows) {
+	CarroDB.deleteById(id, function(affectedRows) {
 		res.json ({ msg: 'Carro deletado com sucesso.' })
 	});
 })
@@ -33,7 +33,7 @@ router.delete('/carros/:id(\\d+)', function (req, res) {
 // GET em /carros/xxx
 router.get('/carros/:tipo', function (req, res) {
 	let tipo = req.params.tipo;
-	CarroRepository.getCarrosByTipo(tipo, function(carros) {
+	CarroDB.getCarrosByTipo(tipo, function(carros) {
 		res.json(carros)
 	});
 })
@@ -41,7 +41,7 @@ router.get('/carros/:tipo', function (req, res) {
 router.post('/carros', function (req, res) {
 	// Carro enviado no formato JSON
 	let carro = req.body;
-	CarroRepository.save(carro, function(carro) {
+	CarroDB.save(carro, function(carro) {
 		res.json(carro)
 	});
 })
@@ -49,7 +49,7 @@ router.post('/carros', function (req, res) {
 router.put('/carros', function (req, res) {
 	// Carro enviado no formato JSON
 	let carro = req.body;
-	CarroRepository.update(carro, function(carro) {
+	CarroDB.update(carro, function(carro) {
 		// res.json(carro)
 		res.json ({ msg: 'Carro atualizado com sucesso.' })
 	});

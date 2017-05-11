@@ -1,7 +1,7 @@
 var mysql = require('mysql');
 
-// Classe CarroRepository
-module.exports = class CarroRepository {
+// Classe CarroDB
+class CarroDB {
 	// Função para conectar no banco de dados.
 	static connect() {
 		// Cria a conexão com MySQL
@@ -17,7 +17,7 @@ module.exports = class CarroRepository {
 	}
 	// Retorna a lista de carros
 	static getCarros(callback) {
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 		// Cria uma consulta
 		let sql = "select * from carro";
 		let query = connection.query(sql, function (error, results, fields) {
@@ -32,7 +32,7 @@ module.exports = class CarroRepository {
 	// Retorna a lista de carros por tipo do banco de dados
 	static getCarrosByTipo(tipo, callback) {
 
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 		// Cria uma consulta
 		let sql = "select id,nome,tipo from carro where tipo = '" + tipo + "'";
 		let query = connection.query(sql, function (error, results, fields) {
@@ -46,7 +46,7 @@ module.exports = class CarroRepository {
 	}
 	// Retorna a lista de carros
 	static getCarroById(id, callback) {
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 		// Cria uma consulta
 		let sql = "select * from carro where id=?";
 		let query = connection.query(sql, id, function (error, results, fields) {
@@ -68,7 +68,7 @@ module.exports = class CarroRepository {
 	// Recebe o JSON com dados do carro como parâmetro.
 	static save(carro, callback) {
 
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 
 		// Insere o carro
 		let sql = "insert into carro set ? ";
@@ -86,7 +86,7 @@ module.exports = class CarroRepository {
 	// Atualiza um carro no banco de dados.
 	static update(carro, callback) {
 
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 
 		// SQL para atualizar o carro
 		let sql = "update carro set ? where id = ?";
@@ -103,25 +103,20 @@ module.exports = class CarroRepository {
 	// Deleta um carro no banco de dados.
 	static delete(carro, callback) {
 
-		// Id do carro para deletar
-		let id = carro.id;
-
-		deleteById(id, callback)
-	}
-	// Delete um carro pelo id.
-	static deleteById(id, callback) {
-
-		let connection = CarroRepository.connect()
+		let connection = CarroDB.connect()
 
 		// SQL para deletar o carro
 		let sql = "delete from carro where id = ?";
-
+		// Id do carro para deletar
+		let id = carro.id;
 		let query = connection.query(sql, id, function (error, results, fields) {
 			if (error) throw error;
-			callback(results.affectedRows)
+			callback(carro)
 		});
 		console.log(query.sql)
 		// Fecha a conexão.
 		connection.end();
 	}
 };
+
+module.exports = CarroDB;

@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-const CarroRepository = require('./CarroRepository');
+const CarroDB = require('./CarroDB');
 var bodyParser = require('body-parser');
 // Configura para ler dados do POST por form-urlencoded e application/json
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -13,7 +13,7 @@ app.get('/', function (req, res) {
 
 // GET em /carros
 app.get('/carros', function (req, res) {
-	CarroRepository.getCarros(function(carros) {
+	CarroDB.getCarros(function(carros) {
 		res.json(carros)
 	});
 })
@@ -21,7 +21,7 @@ app.get('/carros', function (req, res) {
 // GET em /carros/id
 app.get('/carros/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
-	CarroRepository.getCarroById(id, function(carro) {
+	CarroDB.getCarroById(id, function(carro) {
 		res.json(carro)
 	});
 })
@@ -29,7 +29,7 @@ app.get('/carros/:id(\\d+)', function (req, res) {
 app.delete('/carros/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
 	console.log("deletar arro " + id);
-	CarroRepository.deleteById(id, function(affectedRows) {
+	CarroDB.deleteById(id, function(affectedRows) {
 		res.json ({ msg: 'Carro deletado com sucesso.' })
 	});
 })
@@ -37,7 +37,7 @@ app.delete('/carros/:id(\\d+)', function (req, res) {
 // GET em /carros/xxx
 app.get('/carros/:tipo', function (req, res) {
 	let tipo = req.params.tipo;
-	CarroRepository.getCarrosByTipo(tipo, function(carros) {
+	CarroDB.getCarrosByTipo(tipo, function(carros) {
 		res.json(carros)
 	});
 })
@@ -45,7 +45,7 @@ app.get('/carros/:tipo', function (req, res) {
 app.post('/carros', function (req, res) {
 	// Carro enviado no formato JSON
 	let carro = req.body;
-	CarroRepository.save(carro, function(carro) {
+	CarroDB.save(carro, function(carro) {
 		res.json(carro)
 	});
 })
@@ -53,7 +53,7 @@ app.post('/carros', function (req, res) {
 app.put('/carros', function (req, res) {
 	// Carro enviado no formato JSON
 	let carro = req.body;
-	CarroRepository.update(carro, function(carro) {
+	CarroDB.update(carro, function(carro) {
 		// res.json(carro)
 		res.json ({ msg: 'Carro atualizado com sucesso.' })
 	});
