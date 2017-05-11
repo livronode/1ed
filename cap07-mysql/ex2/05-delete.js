@@ -1,10 +1,10 @@
-// Importa a classe CarroRepository
-const CarroRepository = require('./CarroRepository');
+// Importa a classe CarroDB
+const CarroDB = require('./CarroDB');
 
 // Objeto carro em JSON
 var carro = { id:33};
 
-CarroRepository.delete(carro, function (carro) {
+CarroDB.delete(carro, function (carro) {
 	// Imprime os dados do carro
 	console.log("Carro Deletado: " + carro.id);
 });

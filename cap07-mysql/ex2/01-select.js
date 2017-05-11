@@ -1,5 +1,5 @@
-// Importa a classe CarroRepository
-const CarroRepository = require('./CarroRepository');
+// Importa a classe CarroDB
+const CarroDB = require('./CarroDB');
 
 var callback = function (carros) {
 	// Imprime os carros
@@ -8,4 +8,4 @@ var callback = function (carros) {
   	}
 };
 
-CarroRepository.getCarros(callback);
+CarroDB.getCarros(callback);
