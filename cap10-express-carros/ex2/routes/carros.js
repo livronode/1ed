@@ -2,11 +2,6 @@ var express = require('express');
 const router = express.Router();
 const CarroDB = require('../repository/CarroDB');
 
-// Configura uma rota na raiz.
-router.get('/', function (req, res) {
-	res.send("API dos Carros");
-})
-
 // GET em /carros
 router.get('/carros', function (req, res) {
 	CarroDB.getCarros(function(carros) {

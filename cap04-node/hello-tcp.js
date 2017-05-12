@@ -12,4 +12,4 @@ var server = net.createServer(function (socket) {
 // Inicia o servidor
 server.listen(3000, "localhost");
 // Mensagem ao iniciar o servidor
-console.log("TCP server listening on port 3000 at localhost.");
+console.log("Servidor TCP iniciado...");
