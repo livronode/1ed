@@ -1,6 +1,6 @@
 var express = require('express');
 const router = express.Router();
-const CarroDB = require('../repository/CarroDB');
+const CarroDB = require('../model/CarroDB');
 
 // GET em /carros
 router.get('/carros', function (req, res) {
