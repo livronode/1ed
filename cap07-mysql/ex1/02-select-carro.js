@@ -14,7 +14,7 @@ connection.connect();
 // Cria uma consulta
 let sql = "select id,nome,tipo from carro where id = ?";
 
-let id = 111;
+let id = 11;
 
 connection.query( sql, id, function (error, results, fields) {
 	if (error) throw error;

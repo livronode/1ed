@@ -11,6 +11,10 @@ app.get('/', function (req, res) {
 	res.send("API dos Carros");
 })
 
+app.get('/teste_erro', function (req, res) {
+	throw Error('Erro Ninja');
+})
+
 // Rotas
 app.use('/api', require('./routes/carros'));
 
