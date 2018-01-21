@@ -19,13 +19,15 @@ class CarroDB {
 	static getCarros(callback) {
 		let connection = CarroDB.connect()
 		// Cria uma consulta
-		let sql = "select * from carro";
+		let sql = "select * from carroXXX";
 		let query = connection.query(sql, function (error, results, fields) {
-			if (error) throw error;
+			if (error) {
+                callback(error,null);
+                return;
+            }
 			// Retorna os dados pela função de callback
-			callback(results)
+            callback(null,results);
 		});
-		console.log(query.sql)
 		// Fecha a conexão.
 		connection.end();
 	}
