@@ -1,4 +1,4 @@
-var express = require('express');
+let express = require('express');
 const router = express.Router();
 const CarroDB = require('../model/CarroDB');
 
@@ -7,7 +7,7 @@ router.get('/carros', function (req, res) {
 	CarroDB.getCarros(function(carros) {
 		res.json(carros)
 	});
-})
+});
 
 // GET em /carros/id
 router.get('/carros/:id(\\d+)', function (req, res) {
@@ -15,7 +15,8 @@ router.get('/carros/:id(\\d+)', function (req, res) {
 	CarroDB.getCarroById(id, function(carro) {
 		res.json(carro)
 	});
-})
+});
+
 // DELETE em /carros/id
 router.delete('/carros/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
@@ -23,7 +24,7 @@ router.delete('/carros/:id(\\d+)', function (req, res) {
 	CarroDB.deleteById(id, function(affectedRows) {
 		res.json ({ msg: 'Carro deletado com sucesso.' })
 	});
-})
+});
 
 // GET em /carros/xxx
 router.get('/carros/:tipo', function (req, res) {
@@ -31,7 +32,8 @@ router.get('/carros/:tipo', function (req, res) {
 	CarroDB.getCarrosByTipo(tipo, function(carros) {
 		res.json(carros)
 	});
-})
+});
+
 // POST para salvar um carro
 router.post('/carros', function (req, res) {
 	// Carro enviado no formato JSON
@@ -39,15 +41,15 @@ router.post('/carros', function (req, res) {
 	CarroDB.save(carro, function(carro) {
 		res.json(carro)
 	});
-})
+});
+
 // PUT para atualizar um carro
 router.put('/carros', function (req, res) {
 	// Carro enviado no formato JSON
 	let carro = req.body;
 	CarroDB.update(carro, function(carro) {
-		// res.json(carro)
 		res.json ({ msg: 'Carro atualizado com sucesso.' })
 	});
-})
+});
 
 module.exports  = router;
