@@ -1,10 +1,10 @@
-var express = require('express');
+let express = require('express');
 const router = express.Router();
 const CarroDB = require('../model/CarroDB');
 const exec = require('./utils');
-var fs = require('fs');
+let fs = require('fs');
 
-// GET em 
+// GET em /carros
 router.get('/', exec(async (req, res, next) => {
     let carros = await CarroDB.getCarros();
     res.json(carros);
@@ -31,7 +31,7 @@ router.get('/:tipo', exec(async (req, res, next) => {
     res.json(carros);
 }));
 
-// POST para salvar um carro
+// POST para sallet um carro
 router.post('/', exec(async (req, res, next) => {
     // Carro enviado no formato JSON
     let carro = await CarroDB.save(req.body);
@@ -47,19 +47,20 @@ router.put('/', exec(async (req, res, next) => {
 
 // Post para fazer upload em um arquivo.
 router.post('/upload', exec(async (req, res, next) => {
+    // Le da request o nome do arquivo e o base64
     let fileName = req.body.fileName;
     let base64 = req.body.base64;
-    console.log(fileName);
-    console.log(base64);
-    let buf = Buffer.from(base64, 'base64');
-    console.log(buf);
 
+    // Converte o base64 para um buffer binário
+    let buf = Buffer.from(base64, 'base64');
+
+    // Escreve o buffer no arquivo.
     fs.writeFile("./fotos/"+fileName, buf,  "binary",function(err) {
         if(err) {
             next(err);
             res.json({msg: 'Erro ao salvar o arquivo.'});
         } else {
-            res.json({msg: 'Arquivo recebido com sucesso.'});
+            res.json({msg: 'Arquivo salvo com sucesso.'});
         }
     });
 }));
