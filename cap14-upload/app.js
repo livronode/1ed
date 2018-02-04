@@ -6,7 +6,7 @@ let bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({limit: '10mb', extended: false }));
 app.use(bodyParser.json());
 
-// Store all HTML files in view folder.
+// Permite utilizar arquivos estáticos na pasta view
 app.use(express.static(__dirname + '/view'));
 
 // middleware  para interceptar a request e mostrar a data atual
@@ -22,6 +22,7 @@ app.get('/', function (req, res) {
 
 // Rotas
 app.use('/api/carros', require('./routes/carros'));
+app.use('/api/upload', require('./routes/upload'));
 
 // Teste de Erro
 app.get('/teste_erro', function (req, res) {

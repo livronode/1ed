@@ -45,24 +45,4 @@ router.put('/', exec(async (req, res, next) => {
     res.json({msg: 'Carro atualizado com sucesso.'});
 }));
 
-// Post para fazer upload em um arquivo.
-router.post('/upload', exec(async (req, res, next) => {
-    // Le da request o nome do arquivo e o base64
-    let fileName = req.body.fileName;
-    let base64 = req.body.base64;
-
-    // Converte o base64 para um buffer binário
-    let buf = Buffer.from(base64, 'base64');
-
-    // Escreve o buffer no arquivo.
-    fs.writeFile("./fotos/"+fileName, buf,  "binary",function(err) {
-        if(err) {
-            next(err);
-            res.json({msg: 'Erro ao salvar o arquivo.'});
-        } else {
-            res.json({msg: 'Arquivo salvo com sucesso.'});
-        }
-    });
-}));
-
 module.exports = router;
