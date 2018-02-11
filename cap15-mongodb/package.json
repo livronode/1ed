@@ -1,0 +1,20 @@
+{
+  "name": "cap10-express-carros",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemon": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.188.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongodb": "^3.0.2",
+    "mongoose": "^5.0.4",
+    "mysql": "^2.13.0"
+  }
+}

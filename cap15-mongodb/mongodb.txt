@@ -1,0 +1,12 @@
+mkdir /mongo/data
+
+mongod --dbpath /mongo/data
+
+{"nome":"Carro com MongoDB","tipo":"esportivos"}
+
+db.carros.insert({"nome":"Carro 1","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 2","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 3","tipo":"esportivos"})
+
+npm install mongodb --save
+npm install mongoose --save
