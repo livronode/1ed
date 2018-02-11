@@ -1,7 +1,7 @@
 let AWS = require('aws-sdk');
 
-let accessKey = 'AKIAI7TMZKI6G6GTY7IQ';
-let secretKey = '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';
+let accessKey = 'x';
+let secretKey = 'y';
 
 let bucket = 'livro-aws';
 
