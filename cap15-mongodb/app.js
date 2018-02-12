@@ -57,7 +57,7 @@ db.connect(function(err) {
     } else {
         console.log("MongoDB conectado: ", db);
 
-        // Inicia o servidor
+        // Conexão OK. Vamos inicia o servidor do Node 
         let server = app.listen(3000, function () {
             let host = server.address().address;
             let port = server.address().port;

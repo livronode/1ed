@@ -1,4 +1,4 @@
-// Import a classe auxiliar de conexão
+// Importa a biblioteca do Mongo
 let db = require('./mongodb');
 // Objeto usado como id no mongo
 let ObjectId = require('mongodb').ObjectID;
@@ -10,7 +10,6 @@ class CarroDB {
     static getCarros() {
         return new Promise(function (resolve, reject) {
             let carros = db.get().collection('carros');
-
             carros.find({}).toArray(function(error, result) {
                 if (error) return reject(error);
                 resolve(result);
@@ -28,7 +27,7 @@ class CarroDB {
             });
         });
 	}
-	// Retorna a lista de carros
+    // Retorna o carro pelo id 
 	static getCarroById(id) {
         return new Promise(function (resolve, reject) {
             let carros = db.get().collection('carros');
@@ -54,6 +53,7 @@ class CarroDB {
             });
         });
 	}
+
 	// Atualiza um carro no banco de dados.
 	static update(carro) {
         return new Promise(function (resolve, reject) {
@@ -75,12 +75,10 @@ class CarroDB {
 	static deleteById(id) {
         return new Promise(function (resolve, reject) {
             let carros = db.get().collection('carros');
-            console.log("Remove id: " + id);
             carros.removeOne({"_id":ObjectId(id)},function(error, r) {
-                console.log("QTDE ", error,r.result);
                 if (error) return reject(error);
-                let affectedRows = r.result.n;
-                resolve(affectedRows);
+                // Retorna a qtde de registros deletados
+                resolve(r.result.n);
             });
         });
 	}

@@ -2,11 +2,34 @@ mkdir /mongo/data
 
 mongod --dbpath /mongo/data
 
-{"nome":"Carro com MongoDB","tipo":"esportivos"}
+{"nome":"Carro 1","tipo":"esportivos"}
 
+// Inserir 3 carros
 db.carros.insert({"nome":"Carro 1","tipo":"esportivos"})
 db.carros.insert({"nome":"Carro 2","tipo":"esportivos"})
 db.carros.insert({"nome":"Carro 3","tipo":"esportivos"})
 
+db.carros.find()
+db.carros.find().pretty()
+
+// Buscando um carro
+db.carros.find({"nome":"Carro 1"}).pretty()
+
+db.carros.findOne({"_id":ObjectId("5a81a147760bab4aaec52063")})
+
+// Udate
+db.carros.update({"nome":"Carro 1"}, {"nome":"Carro 1 update","tipo":"esportivos"})
+
+db.carros.update({"_id":ObjectId("5a81a147760bab4aaec52063")}, {"nome":"Carro 1","tipo":"esportivos"})
+
+// Remove
+db.carros.remove({"nome":"Carro 1"})
+db.carros.find().pretty()
+
+db.carros.remove({})
+db.carros.find().pretty()
+
+// remove todos
+db.carros.remove({})
+
 npm install mongodb --save
-npm install mongoose --save
