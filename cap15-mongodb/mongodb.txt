@@ -20,7 +20,7 @@ db.carros.findOne({"_id":ObjectId("5a81a147760bab4aaec52063")})
 // Udate
 db.carros.update({"nome":"Carro 1"}, {"nome":"Carro 1 update","tipo":"esportivos"})
 
-db.carros.update({"_id":ObjectId("5a81a147760bab4aaec52063")}, {"nome":"Carro 1","tipo":"esportivos"})
+db.carros.update({"_id":ObjectId("5a81a869760bab4aaec52066")}, {"nome":"Carro 1 x","tipo":"esportivos"})
 
 // Remove
 db.carros.remove({"nome":"Carro 1"})
@@ -31,5 +31,6 @@ db.carros.find().pretty()
 
 // remove todos
 db.carros.remove({})
+
 
 npm install mongodb --save

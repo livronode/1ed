@@ -1,0 +1,109 @@
+https://hackernoon.com/tutorial-creating-and-managing-a-node-js-server-on-aws-part-2-5fbdea95f8a1
+
+chmod 400 chave.pem
+
+sudo yum update -y
+
+ssh -i livrows-nodekeypair.pem ec2-user@52.67.179.240
+
+Instalar o NVM:
+
+https://github.com/creationix/nvm
+
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
+
+--
+source ~/.bashrc
+
+nvm ls
+
+nvm install 7nod
+
+node --version
+
+--
+Criar projeto node
+
+npm init
+npm install express --save
+
+* index.js
+
+const express = require('express')
+const app = express()
+app.get('/', (req, res) => {
+  res.send('Hello Node AWS!')
+})
+app.listen(3000, () => console.log('Servidor executando na porta 3000'))
+---
+
+ctrl+z
+bg %1
+
+---
+
+instalar o nginx
+
+##Amazon
+
+sudo yum install -y nginx
+
+sudo service nginx start
+
+sudo chkconfig nginx on
+
+cd /etc/nginx/
+sudo vim nginx.conf
+
+location / {
+    proxy_set_header  X-Real-IP  $remote_addr;
+    proxy_set_header  Host       $http_host;
+    proxy_pass        http://127.0.0.1:3000;
+}
+
+--
+
+sudo yum install -y git
+sudo yum install -y mysql
+
+wget https://raw.githubusercontent.com/livronode/1ed/master/backup_carros.sql
+
+mysql -h livro.c6zmdwouvkyo.sa-east-1.rds.amazonaws.com -u livro -p livro < backup_carros.sql
+--
+
+--
+manter no ar
+
+Instala o npm
+
+npm install pm2 -g
+
+pm2 start arquivo.js
+
+killall -9 node
+
+npm i -g pm2
+
+pm2 start app.js
+
+pm2 startup
+> digite o resultado
+
+pm2 save
+
+pm2 list
+--
+mongodb
+
+https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
+
+sudo vim /etc/yum.repos.d/mongodb-org-3.6.repo
+
+sudo yum install -y mongodb-org
+
+sudo service mongod start
+sudo chkconfig mongod on
+
+sudo tail -f /var/log/mongodb/mongod.log
+
+--

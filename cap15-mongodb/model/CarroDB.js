@@ -58,16 +58,18 @@ class CarroDB {
 	static update(carro) {
         return new Promise(function (resolve, reject) {
             let carros = db.get().collection('carros');
-            console.log("update json ", carro._id);
-            /*carros.replaceOne( {"_id":ObjectId(carro._id)} ,carro, function (error, response) {
+            // Salva o id do carro em uma variável
+            let id = carro._id;
+            // Remove o id do JSON
+            delete carro._id;
+            // Atualiza o carro pelo id
+            carros.update( {"_id":ObjectId(id)} ,carro, function (error, response) {
                 if(error) {
                     reject(error);
                 } else {
                     resolve(carro);
                 }
-            });*/
-
-            carros.replaceOne( {"_id":ObjectId(carro._id)} ,carro, {"upsert": true});
+            });
         });
 	}
 
