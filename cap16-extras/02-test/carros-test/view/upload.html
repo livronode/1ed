@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Base64</title>
+</head>
+<body>
+<form enctype="application/x-www-form-urlencoded" action="/api/upload"
+      method="POST">
+	FileName:<br>
+	<input name="fileName" type="text" />
+    <br>
+	Base64:
+    <br>
+	<textarea name="base64" type="textarea" cols="60" rows="10" ></textarea>
+    <br>
+    <!-- Botão de submit -->
+	<input type="submit" value="Enviar arquivo" />
+</form>
+</body>
+</html>
