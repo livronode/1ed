@@ -2,14 +2,20 @@ https://hackernoon.com/tutorial-creating-and-managing-a-node-js-server-on-aws-pa
 
 chmod 400 chave.pem
 
+---------------------------------------------
 1) SSH
 ssh -i livrows-nodekeypair.pem ec2-user@54.233.238.30
+---------------------------------------------
 
+---------------------------------------------
 2) Update Yum
+---------------------------------------------
 
 sudo yum update -y
 
+---------------------------------------------
 3) Instalar o Node NVM (Node Version Manager)
+---------------------------------------------
 
 https://github.com/creationix/nvm
 
@@ -28,7 +34,9 @@ nvm ls
 // Verifica a versão do node
 node --version
 
-4) Vamos copiar o projeto dos carros do livro.
+---------------------------------------------
+4) Baixar o projeto node do github
+---------------------------------------------
 
 // Instala o git
 sudo yum install -y git
@@ -51,25 +59,38 @@ npm install
 
 // Executa o projeto
 node app.js
----
 
-ctrl+z
-bg %1
+// Neste momento o server node está no ar
+http://54.233.178.179:3000
 
----
+// A API De carros não vai funcionar pois ainda vamos configurar o MySQL
+http://54.233.178.179:3000/api/carros
 
-instalar o nginx
+// Para parar o servidor é Ctrl+C
+// Se quiser mover para backgroud é Ctrl+Z e depois digite bg %1
 
-##Amazon
+---------------------------------------------
+5) Instalar o servidor web Nginx
+---------------------------------------------
 
+// Instala o nginx
 sudo yum install -y nginx
 
+// Iniciar o nginx
 sudo service nginx start
 
+// Configura o nginx para iniciar automaticamente
 sudo chkconfig nginx on
 
+// Vamos editar o arquivo de configuração
+// Para criar uma regra de proxy reverso
+// Assim o nginx recebe os dados na porta 80 e redireciona ao node na porta 3000
 cd /etc/nginx/
 sudo vim nginx.conf
+
+// No arquivo encontre a configuração do servidor em server { }
+// Depois encontre a configuração location { } que está vazia
+// E substitua por isso para criar a regra para redirecionar a porta 80 para 3000.
 
 location / {
     proxy_set_header  X-Real-IP  $remote_addr;
@@ -77,49 +98,214 @@ location / {
     proxy_pass        http://127.0.0.1:3000;
 }
 
---
+// Depois disso salve o arquivo
+// Reiniciar o nginx
+sudo service nginx restart
 
+// Acesso o servidor na porta 80 e o node estará no ar
+http://54.233.238.30/
+http://54.233.238.30/api/carros
 
+---------------------------------------------
+6) MySQL
+---------------------------------------------
+// O node deve estar dando erro pois não conseguiu se conectar ao MySQL
+// Error: connect ECONNREFUSED 127.0.0.1:3306
+// Ao invés de instalar o servidor do MySQL na máquina vamos usar o RDS
+
+https://sa-east-1.console.aws.amazon.com/rds/
+
+*** Crie um servidor do RDS
+tipo: Dev/Test, micro
+instance: livro
+master user: livro
+master password: livro
+database name: livro
+
+// Pare o node
+killall node
+
+// Volte para a raiz do usuario ec2-user
+// Digite "cd + espaço
+cd
+
+// Instale apenas o client do MySQL para testar a conexão e importar o dump
 sudo yum install -y mysql
 
+// Baixe o dump do banco de dados
 wget https://raw.githubusercontent.com/livronode/1ed/master/backup_carros.sql
 
+*** No EC2 em Security Groups encontre o grupo de segurança que foi criado para o RDS
+*** De permissão para o grupo do EC2 acessar o MySQL
+
+// Altere o endereço (endpoint) do RDS e digite o seguinte comando
 mysql -h livro.c6zmdwouvkyo.sa-east-1.rds.amazonaws.com -u livro -p livro < backup_carros.sql
---
 
---
-manter no ar
+// Entre no mysql e verifique se a tabela carro está preenchida no banco livro
+mysql -h livro.c6zmdwouvkyo.sa-east-1.rds.amazonaws.com -u livro -p livro
 
-Instala o npm
+select id,tipo,nome from carro;
+
++----+------------+------------------------------+
+| id | tipo       | nome                         |
++----+------------+------------------------------+
+|  1 | classicos  | Tucker 1948                  |
+|  2 | classicos  | Chevrolet Corvette           |
+|  3 | classicos  | Chevrolet Impala Coupe       |
+|  4 | classicos  | Cadillac Deville Convertible |
+|  5 | classicos  | Chevrolet Bel-Air            |
+|  6 | classicos  | Cadillac Eldorado            |
+|  7 | classicos  | Ferrari 250 GTO              |
+|  8 | classicos  | Dodge Challenger             |
+|  9 | classicos  | Camaro SS 1969               |
+| 10 | classicos  | Ford Mustang 1976            |
+| 11 | esportivos | Ferrari FF                   |
+| 12 | esportivos | AUDI GT Spyder               |
+| 13 | esportivos | Porsche Panamera             |
+| 14 | esportivos | Lamborghini Aventador        |
+| 15 | esportivos | Chevrolet Corvette Z06       |
+| 16 | esportivos | BMW M5                       |
+| 17 | esportivos | Renault Megane RS Trophy     |
+| 18 | esportivos | Maserati Grancabrio Sport    |
+| 19 | esportivos | McLAREN MP4-12C              |
+| 20 | esportivos | MERCEDES-BENZ C63 AMG        |
+| 21 | luxo       | Bugatti Veyron               |
+| 22 | luxo       | Ferrari Enzo                 |
+| 23 | luxo       | Lamborghini Reventon         |
+| 24 | luxo       | Leblanc Mirabeau             |
+| 25 | luxo       | Shelby Supercars Ultimate    |
+| 26 | luxo       | Pagani Zonda                 |
+| 27 | luxo       | Koenigsegg CCX               |
+| 28 | luxo       | Mercedes SLR McLaren         |
+| 29 | luxo       | Rolls Royce Phantom          |
+| 30 | luxo       | Lexus LFA                    |
++----+------------+------------------------------+
+
+// Digite exit no prompt do MySQL para sair.
+
+---------------------------------------------
+7) Testando o servidor em Node com MySQL
+---------------------------------------------
+
+// Edite o arquivo CarroDB.js e altere o localhost para o endpoint do RDS
+// Execute o node novamente, para isso entre na raiz do projeto e digite:
+node app.js
+
+// Feito isso a API dos carros estará no ar
+http://54.233.238.30/api/carros
+
+---------------------------------------------
+8) Manter o node executando depois que reiniciar o servidor
+---------------------------------------------
+
+// Encerre os processos node se existir
+killall node
+
+// Instala o pm2 (https://www.npmjs.com/package/pm2)
 
 npm install pm2 -g
 
-pm2 start arquivo.js
-
-killall -9 node
-
-npm i -g pm2
-
+// Inicie o node novamente, mas desta vez com o comando pm2 start"
 pm2 start app.js
 
+// Digite este comando
 pm2 startup
-> digite o resultado
 
+*** O resultado do comando startup, copie e digite no terminal
+
+// Salve as configurações
 pm2 save
 
+// Lista as configurações
 pm2 list
---
-mongodb
 
+// Pode reiniciar o computador para testar
+sudo shutdown -r now
+// Ou pela Amazon fazendo restart da instância
+// ** Cuidado se fizer Stop/Start a instância pode mudar de IP
+// A não ser que tenha alocado um Elastic IP como é ensinado no livro de AWS
+--
+
+---------------------------------------------
+9) Desinstalar o server node pois vamos testar com mongo
+---------------------------------------------
+
+npm install pm2 -g
+
+pm2 list
+
+┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┬──────────┐
+│ App name │ id │ mode │ pid  │ status │ restart │ uptime │ cpu │ mem       │ user     │ watching │
+├──────────┼────┼──────┼──────┼────────┼─────────┼────────┼─────┼───────────┼──────────┼──────────┤
+│ app      │ 0  │ fork │ 2716 │ online │ 0       │ 3m     │ 0%  │ 40.5 MB   │ ec2-user │ disabled │
+└──────────┴────┴──────┴──────┴────────┴─────────┴────────┴─────┴───────────┴──────────┴──────────┘
+
+// Deleta o app 0
+pm2 delete 0
+
+---------------------------------------------
+10) Instalar o mongodb
+---------------------------------------------
+
+// Seguindo os docs da AWS
 https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
 
+// Cria um repositório do yum para MongoDB
 sudo vim /etc/yum.repos.d/mongodb-org-3.6.repo
 
+// Digite isso no arquivo e salve
+[mongodb-org-3.4]
+name=MongoDB 3.4 Repository
+baseurl=https://repo.mongodb.org/yum/amazon/2013.03/mongodb-org/3.4/x86_64/
+gpgcheck=0
+enabled=1
+
+// Instale o mongo
 sudo yum install -y mongodb-org
 
+// Iniciar o mongo e configurar para iniciar automaticamente
 sudo service mongod start
 sudo chkconfig mongod on
 
+// Ver logs do mongo
 sudo tail -f /var/log/mongodb/mongod.log
 
---
+// Vamos entrar no client do mongo e adicionar 3 documentos
+// Digite isso para conectar no mongo e selecionar o banco livro
+mongo
+use livro
+
+// Adicione 3 documentos
+db.carros.insert({"nome":"Carro 1","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 2","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 3","tipo":"esportivos"})
+
+// Liste a coleção de carros
+db.carros.find().pretty()
+
+// Sair
+exit
+
+---------------------------------------------
+11) Testando o servidor em Node com MongoDB
+---------------------------------------------
+
+// Pronto o mongo está no ar
+// Vamos executar o projeto
+cd /home/ec2-user/carros/1ed/cap15-mongodb
+
+// Instala as dependências do projeto
+npm install
+
+// Executa o server em node
+node app.js
+
+// Acesse o servidor (deve mostrar o json dos carros do mongodb)
+http://54.233.178.179/api/carros
+
+-----------------------------------------------------------
+12) Configurar o server node para iniciar automaticamente
+-----------------------------------------------------------
+
+Repita o passo 8.
+Ao invés de iniciar com o node utilize o pm2
