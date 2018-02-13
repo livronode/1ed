@@ -1,9 +1,12 @@
-https://hackernoon.com/tutorial-creating-and-managing-a-node-js-server-on-aws-part-2-5fbdea95f8a1
-
-chmod 400 chave.pem
+####################################
+Dicas para instalar o Node na AWS
+Com MySQL ou MongoDB
+####################################
 
 ---------------------------------------------
 1) SSH
+chmod 400 chave.pem
+
 ssh -i livrows-nodekeypair.pem ec2-user@54.233.238.30
 ---------------------------------------------
 

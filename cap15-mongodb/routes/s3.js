@@ -3,7 +3,7 @@ let AWS = require('aws-sdk');
 let accessKey = 'AKIAI7TMZKI6G6GTY7IQ';
 let secretKey = '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';
 
-let bucket = 'livro-aws';
+let bucket = 'livro-AWS.txt';
 
 // Classe utilitária para enviar arquivos para o S3
 class S3Helper {
@@ -22,7 +22,7 @@ class S3Helper {
         // Cria o objeto do S3
         let s3 = new AWS.S3();
 
-        // Adiciona o arquivo no bucket livro-aws
+        // Adiciona o arquivo no bucket livro-AWS.txt
         s3.putObject({
             Bucket: bucket,
             Key: path,
