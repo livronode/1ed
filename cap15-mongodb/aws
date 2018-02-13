@@ -2,39 +2,55 @@ https://hackernoon.com/tutorial-creating-and-managing-a-node-js-server-on-aws-pa
 
 chmod 400 chave.pem
 
+1) SSH
+ssh -i livrows-nodekeypair.pem ec2-user@54.233.238.30
+
+2) Update Yum
+
 sudo yum update -y
 
-ssh -i livrows-nodekeypair.pem ec2-user@52.67.179.240
-
-Instalar o NVM:
+3) Instalar o Node NVM (Node Version Manager)
 
 https://github.com/creationix/nvm
 
+// Download
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 
---
+// Precisa reiniciar o bash ou fazer logout/login no ssh
 source ~/.bashrc
 
+// Instala a versão 9 do node
+nvm install 9
+
+// Verifica o que está instalado.
 nvm ls
 
-nvm install 7nod
-
+// Verifica a versão do node
 node --version
 
---
-Criar projeto node
+4) Vamos copiar o projeto dos carros do livro.
 
-npm init
-npm install express --save
+// Instala o git
+sudo yum install -y git
 
-* index.js
+// Cria a pasta carros para baixar o projeto do github
+mkdir carros
+cd carros
 
-const express = require('express')
-const app = express()
-app.get('/', (req, res) => {
-  res.send('Hello Node AWS!')
-})
-app.listen(3000, () => console.log('Servidor executando na porta 3000'))
+// Baixa os fontes do github
+git clone https://github.com/livronode/1ed
+
+// Entra na pasta do projeto
+cd 1ed/cap14-upload/
+
+// Atualmente estamos nesta pasta
+/home/ec2-user/carros/1ed/cap14-upload
+
+// Baixar as dependências
+npm install
+
+// Executa o projeto
+node app.js
 ---
 
 ctrl+z
@@ -63,7 +79,7 @@ location / {
 
 --
 
-sudo yum install -y git
+
 sudo yum install -y mysql
 
 wget https://raw.githubusercontent.com/livronode/1ed/master/backup_carros.sql
