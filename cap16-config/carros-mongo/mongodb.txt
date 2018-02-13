@@ -1,0 +1,51 @@
+
+
+
+----------------------
+1) iniciar o servidor
+----------------------
+mkdir /mongo/data
+sudo mongod --dbpath /mongo/data
+
+----------------------
+2) Conectar no mongo
+----------------------
+mongo
+
+----------------------
+3) Inserir 3 carros
+----------------------
+db.carros.insert({"nome":"Carro 1","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 2","tipo":"esportivos"})
+db.carros.insert({"nome":"Carro 3","tipo":"esportivos"})
+
+---------------------------------
+4) Consultar/Atualizar/Deletar
+---------------------------------
+db.carros.find()
+db.carros.find().pretty()
+
+// Buscando um carro
+db.carros.find({"nome":"Carro 1"}).pretty()
+
+db.carros.findOne({"_id":ObjectId("5a81a147760bab4aaec52063")})
+
+// Udate
+db.carros.update({"nome":"Carro 1"}, {"nome":"Carro 1 update","tipo":"esportivos"})
+
+db.carros.update({"_id":ObjectId("5a81a869760bab4aaec52066")}, {"nome":"Carro 1 x","tipo":"esportivos"})
+
+// Remove
+db.carros.remove({"nome":"Carro 1"})
+db.carros.find().pretty()
+
+db.carros.remove({})
+db.carros.find().pretty()
+
+// remove todos
+db.carros.remove({})
+
+--------
+4) Npm
+--------
+npm install mongodb --save
