@@ -55,10 +55,10 @@ cd carros
 git clone https://github.com/livronode/1ed
 
 // Entra na pasta do projeto
-cd 1ed/cap14-upload/
+cd 1ed/cap16-extras/carros-mysql
 
 // Atualmente estamos nesta pasta
-/home/ec2-user/carros/1ed/cap14-upload
+/home/ec2-user/carros/1ed/cap16-extras/carros-mysql
 
 // Baixar as dependências
 npm install
@@ -69,7 +69,7 @@ node app.js
 // Neste momento o server node está no ar
 http://54.233.178.179:3000
 
-// A API De carros não vai funcionar pois ainda vamos configurar o MySQL
+// *** A API De carros não vai funcionar pois ainda vamos configurar o MySQL
 http://54.233.178.179:3000/api/carros
 
 // Para parar o servidor é Ctrl+C
@@ -131,7 +131,7 @@ database name: livro
 // Pare o node
 killall node
 
-// Volte para a raiz do usuario ec2-user
+// Volte para a raiz do usuario ec2-user (pois vamos baxiar alguns arquivos)
 // Digite "cd + espaço
 cd
 
@@ -193,18 +193,26 @@ select id,tipo,nome from carro;
 7) Testando o servidor em Node com MySQL
 ---------------------------------------------
 
-// Edite o arquivo CarroDB.js e altere o localhost para o endpoint do RDS
-// Execute o node novamente, para isso entre na raiz do projeto e digite:
+// Entre na pasta do projeto com MySQL
+cd /home/ec2-user/carros/1ed/cap16-extras/carros-mysql
+
+// Edite o arquivo de config
+vim config/default.json
+
+// No lugar de localhost no servidor do MySQL, coloque o endpoint do RDS.
+// Ao terminar, salve o arquivo e execute o node novamente.
 node app.js
 
 // Feito isso a API dos carros estará no ar
 http://54.233.238.30/api/carros
 
----------------------------------------------
+-------------------------------------------------------------
 8) Manter o node executando depois que reiniciar o servidor
----------------------------------------------
+-------------------------------------------------------------
 
 // Encerre os processos node se existir
+Ctrl + C
+ou
 killall node
 
 // Instala o pm2 (https://www.npmjs.com/package/pm2)
@@ -224,6 +232,13 @@ pm2 save
 
 // Lista as configurações
 pm2 list
+┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┬──────────┐
+│ App name │ id │ mode │ pid  │ status │ restart │ uptime │ cpu │ mem       │ user     │ watching │
+├──────────┼────┼──────┼──────┼────────┼─────────┼────────┼─────┼───────────┼──────────┼──────────┤
+│ app      │ 0  │ fork │ 2716 │ online │ 0       │ 3m     │ 0%  │ 40.5 MB   │ ec2-user │ disabled │
+└──────────┴────┴──────┴──────┴────────┴─────────┴────────┴─────┴───────────┴──────────┴──────────┘
+
+pm2 show 0
 
 // Pode reiniciar o computador para testar
 sudo shutdown -r now
@@ -232,14 +247,11 @@ sudo shutdown -r now
 // A não ser que tenha alocado um Elastic IP como é ensinado no livro de AWS
 --
 
----------------------------------------------
+-----------------------------------------------------------
 9) Desinstalar o server node pois vamos testar com mongo
----------------------------------------------
-
-npm install pm2 -g
+-----------------------------------------------------------
 
 pm2 list
-
 ┌──────────┬────┬──────┬──────┬────────┬─────────┬────────┬─────┬───────────┬──────────┬──────────┐
 │ App name │ id │ mode │ pid  │ status │ restart │ uptime │ cpu │ mem       │ user     │ watching │
 ├──────────┼────┼──────┼──────┼────────┼─────────┼────────┼─────┼───────────┼──────────┼──────────┤
@@ -250,7 +262,7 @@ pm2 list
 pm2 delete 0
 
 ---------------------------------------------
-10) Instalar o mongodb
+10) Instalar o MongoDB
 ---------------------------------------------
 
 // Seguindo os docs da AWS
@@ -298,7 +310,11 @@ exit
 
 // Pronto o mongo está no ar
 // Vamos executar o projeto
-cd /home/ec2-user/carros/1ed/cap15-mongodb
+// Entre na pasta do projeto com MongoDB
+cd /home/ec2-user/carros/1ed/cap16-extras/carros-mongo
+
+// As configs de conexão estão no arquivo config/default.json
+// Mas não precisa alterar pois instalamos o mongo no localhost
 
 // Instala as dependências do projeto
 npm install
