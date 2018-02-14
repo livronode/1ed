@@ -1,8 +1,0 @@
-{
-  "mysqlConfig": {
-    "host": "localhost",
-    "user": "livro",
-    "password": "livro123",
-    "database": "livro"
-  }
-}

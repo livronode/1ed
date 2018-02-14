@@ -7,7 +7,7 @@ Com MySQL ou MongoDB
 1) SSH
 chmod 400 chave.pem
 
-ssh -i livrows-nodekeypair.pem ec2-user@54.233.238.30
+ssh -i livrows-nodekeypair.pem ec2-user@18.231.184.20
 ---------------------------------------------
 
 ---------------------------------------------
@@ -19,6 +19,9 @@ sudo yum update -y
 ---------------------------------------------
 3) Instalar o Node NVM (Node Version Manager)
 ---------------------------------------------
+
+Tutorial da AWS:
+https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html
 
 https://github.com/creationix/nvm
 

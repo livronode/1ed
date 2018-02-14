@@ -1,0 +1,11 @@
+{
+  "mysqlConfig": {
+    "host": "localhost",
+    "user": "livro",
+    "password": "livro123",
+    "database": "livro"
+  },
+  "basicAuth": {
+    "livro": "livro123"
+  }
+}
