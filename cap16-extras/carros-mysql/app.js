@@ -12,10 +12,10 @@ app.use(express.static(__dirname + '/view'));
 // Configura o base64
 const basicAuth = require('express-basic-auth');
 
-// Configurações do MySQL
-app.use(basicAuth({
-    users: { 'livro': 'livro123' }
-}));
+// Para ativar a segurança Basic Auth, descomente.
+// app.use(basicAuth({
+//     users: { 'livro': 'livro123' }
+// }));
 
 // middleware  para interceptar a request e mostrar a data atual
 app.use(function (req, res, next) {
