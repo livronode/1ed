@@ -69,6 +69,8 @@ node app.js
 // Neste momento o server node está no ar
 http://54.233.178.179:3000
 
+*** Para funcionar, no EC2 em Security Groups libere as portas 80 e 3000
+
 // *** A API De carros não vai funcionar pois ainda vamos configurar o MySQL
 http://54.233.178.179:3000/api/carros
 
@@ -122,11 +124,11 @@ http://54.233.238.30/api/carros
 https://sa-east-1.console.aws.amazon.com/rds/
 
 *** Crie um servidor do RDS
-tipo: Dev/Test, micro
+tipo: Dev/Test, db.t2.micro
 instance: livro
 master user: livro
-master password: livro
-database name: livro
+master password: livro123
+database name: livro123
 
 // Pare o node
 killall node
@@ -146,6 +148,8 @@ wget https://raw.githubusercontent.com/livronode/1ed/master/backup_carros.sql
 
 // Altere o endereço (endpoint) do RDS e digite o seguinte comando
 mysql -h livro.c6zmdwouvkyo.sa-east-1.rds.amazonaws.com -u livro -p livro < backup_carros.sql
+
+Enter password: digite a senha.
 
 // Entre no mysql e verifique se a tabela carro está preenchida no banco livro
 mysql -h livro.c6zmdwouvkyo.sa-east-1.rds.amazonaws.com -u livro -p livro
