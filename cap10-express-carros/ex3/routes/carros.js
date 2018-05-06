@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
 });
 
 // GET em /id
-router.get('//:id(\\d+)', function (req, res) {
+router.get('/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
 	CarroDB.getCarroById(id, function(carro) {
 		res.json(carro)
@@ -18,7 +18,7 @@ router.get('//:id(\\d+)', function (req, res) {
 });
 
 // DELETE em /id
-router.delete('//:id(\\d+)', function (req, res) {
+router.delete('/:id(\\d+)', function (req, res) {
 	let id = req.params.id;
 	console.log("deletar arro " + id);
 	CarroDB.deleteById(id, function(affectedRows) {
@@ -27,7 +27,7 @@ router.delete('//:id(\\d+)', function (req, res) {
 });
 
 // GET em /tipo (classicos, esportivos, luxo)
-router.get('//:tipo', function (req, res) {
+router.get('/:tipo', function (req, res) {
 	let tipo = req.params.tipo;
 	CarroDB.getCarrosByTipo(tipo, function(carros) {
 		res.json(carros)

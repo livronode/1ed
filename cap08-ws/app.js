@@ -1,12 +1,12 @@
 // Carrega os módulos
 var http = require('http');
 var url = require('url');
-// Importa a classe CarroRepository
-const CarroRepository = require('./CarroRepository');
+// Importa a classe CarroDB
+const CarroDB = require('./CarroDB');
 // Consulta os carros pelo tipo e retorna o JSON na resposta.
 function getCarros(response,tipo) {
 	// Busca os carros no banco.
-	CarroRepository.getCarrosByTipo(tipo, function(carros) {
+	CarroDB.getCarrosByTipo(tipo, function(carros) {
 		// Converte o array de carros para JSON
 		var json = JSON.stringify(carros)
 		// Envia o JSON como resposta
@@ -15,7 +15,7 @@ function getCarros(response,tipo) {
 }
 // Salva um carro
 function salvarCarro(response,carro) {
-	CarroRepository.save(carro, function(carro) {
+	CarroDB.save(carro, function(carro) {
 		console.log("Carro salvo com sucesso: " + carro.id)
 		// Converte o carro salvo para JSON
 		var json = JSON.stringify(carro)
