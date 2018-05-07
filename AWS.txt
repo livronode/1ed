@@ -1,6 +1,11 @@
 ####################################
 Dicas para instalar o Node na AWS
 Com MySQL ou MongoDB
+
+Assista a Playlist no Youtube:
+
+https://www.youtube.com/playlist?list=PLHxzZicfj0JtWFqeqbb7aMJMcyTsZWwjk
+
 ####################################
 
 ---------------------------------------------
