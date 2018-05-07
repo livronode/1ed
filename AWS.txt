@@ -8,16 +8,13 @@ Com MySQL ou MongoDB
 chmod 400 chave.pem
 
 ssh -i livronode.pem ec2-user@18.231.184.20
----------------------------------------------
 
----------------------------------------------
-2) Update Yum
----------------------------------------------
+Depois de entrar na máquina atualize os pacotes:
 
 sudo yum update -y
 
 ---------------------------------------------
-3) Instalar o Node NVM (Node Version Manager)
+2) Instalar o Node NVM (Node Version Manager)
 ---------------------------------------------
 
 Tutorial da AWS:
@@ -41,7 +38,7 @@ nvm ls
 node --version
 
 ---------------------------------------------
-4) Baixar o projeto node do github
+3) Baixar o projeto node do github
 ---------------------------------------------
 
 // Instala o git
@@ -78,7 +75,7 @@ http://54.233.178.179:3000/api/carros
 // Se quiser mover para backgroud é Ctrl+Z e depois digite bg %1
 
 ---------------------------------------------
-5) Instalar o servidor web Nginx
+4) Instalar o servidor web Nginx
 ---------------------------------------------
 
 // Instala o nginx
@@ -115,7 +112,7 @@ http://54.233.238.30/
 http://54.233.238.30/api/carros
 
 ---------------------------------------------
-6) MySQL
+5) MySQL
 ---------------------------------------------
 // O node deve estar dando erro pois não conseguiu se conectar ao MySQL
 // Error: connect ECONNREFUSED 127.0.0.1:3306
@@ -193,9 +190,7 @@ select id,tipo,nome from carro;
 
 // Digite exit no prompt do MySQL para sair.
 
----------------------------------------------
-7) Testando o servidor em Node com MySQL
----------------------------------------------
+* Testando o servidor em Node com MySQL
 
 // Entre na pasta do projeto com MySQL
 cd /home/ec2-user/carros/1ed/cap16-extras/carros-mysql
@@ -211,7 +206,7 @@ node app.js
 http://54.233.238.30/api/carros
 
 -------------------------------------------------------------
-8) Manter o node executando depois que reiniciar o servidor
+6) Manter o node executando depois que reiniciar o servidor
 -------------------------------------------------------------
 
 // Encerre os processos node se existir
@@ -252,7 +247,7 @@ sudo shutdown -r now
 --
 
 -----------------------------------------------------------
-9) Desinstalar o server node pois vamos testar com mongo
+7) Desinstalar o server node pois vamos testar com mongo
 -----------------------------------------------------------
 
 pm2 list
@@ -266,7 +261,7 @@ pm2 list
 pm2 delete 0
 
 ---------------------------------------------
-10) Instalar o MongoDB
+8) Instalar o MongoDB
 ---------------------------------------------
 
 // Seguindo os docs da AWS
@@ -309,7 +304,7 @@ db.carros.find().pretty()
 exit
 
 ---------------------------------------------
-11) Testando o servidor em Node com MongoDB
+9) Testando o servidor em Node com MongoDB
 ---------------------------------------------
 
 // Pronto o mongo está no ar
@@ -330,7 +325,7 @@ node app.js
 http://54.233.178.179/api/carros
 
 -----------------------------------------------------------
-12) Configurar o server node para iniciar automaticamente
+10) Configurar o server node para iniciar automaticamente
 -----------------------------------------------------------
 
 Repita o passo 8.
