@@ -5,6 +5,7 @@ Com MySQL ou MongoDB
 
 ---------------------------------------------
 1) SSH
+---------------------------------------------
 chmod 400 chave.pem
 
 ssh -i livronode.pem ec2-user@18.231.184.20
